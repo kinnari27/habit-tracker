@@ -24,14 +24,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AutoAwesome
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -276,11 +274,13 @@ fun HomeScreen(
                     items(listState.habits) { habit ->
                         val isCompleted = listState.completedHabitIds.contains(habit.id)
                         val streak = listState.streakStats[habit.id]?.currentStreak ?: 0
+                        val isToday = selectedDate == LocalDate.now()
 
                         HabitCard(
                             habit = habit,
                             isCompleted = isCompleted,
                             streak = streak,
+                            enabled = isToday,
                             onToggleComplete = { viewModel.toggleHabitCompletion(habit.id) },
                             onLongClick = { habitToDelete = habit }
                         )

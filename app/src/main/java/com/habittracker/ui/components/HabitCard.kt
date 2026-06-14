@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Alarm
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Computer
 import androidx.compose.material.icons.filled.DirectionsRun
 import androidx.compose.material.icons.filled.Diversity3
@@ -27,7 +28,6 @@ import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.Payments
 import androidx.compose.material.icons.filled.SelfImprovement
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -52,17 +52,18 @@ fun HabitCard(
     streak: Int,
     onToggleComplete: () -> Unit,
     onLongClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
-    val outlineColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
+    val outlineColor = MaterialTheme.colorScheme.outline.copy(alpha = if (enabled) 0.5f else 0.2f)
     val cardColor = if (isCompleted) {
-        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
+        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = if (enabled) 0.6f else 0.3f)
     } else {
         MaterialTheme.colorScheme.surface
     }
 
     val scale by animateFloatAsState(
-        targetValue = if (isCompleted) 1.05f else 1f,
+        targetValue = if (isCompleted && enabled) 1.05f else 1f,
         animationSpec = tween(durationMillis = 200),
         label = "CompleteScale"
     )
@@ -180,9 +181,13 @@ fun HabitCard(
                 modifier = Modifier
                     .size(28.dp)
                     .clip(CircleShape)
-                    .background(checkboxColor)
-                    .border(1.5.dp, checkboxBorderColor, CircleShape)
-                    .clickable { onToggleComplete() }
+                    .background(checkboxColor.copy(alpha = if (enabled) 1f else 0.4f))
+                    .border(
+                        1.5.dp,
+                        checkboxBorderColor.copy(alpha = if (enabled) 1f else 0.4f),
+                        CircleShape
+                    )
+                    .clickable(enabled = enabled) { onToggleComplete() }
             ) {
                 if (isCompleted) {
                     Icon(

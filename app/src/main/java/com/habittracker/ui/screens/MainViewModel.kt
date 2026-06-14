@@ -89,6 +89,8 @@ class MainViewModel(
     }
 
     fun toggleHabitCompletion(habitId: Int) {
+        if (_selectedDate.value != LocalDate.now()) return // Only allow updates for today
+
         viewModelScope.launch {
             repository.toggleHabitCompletion(habitId, _selectedDate.value)
         }

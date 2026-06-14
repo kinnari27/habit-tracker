@@ -146,14 +146,17 @@ fun CompletionHeatmap(
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Box(
-                    modifier = Modifier.size(10.dp).background(
-                        MaterialTheme.colorScheme.outline.copy(alpha = 0.15f),
-                        RoundedCornerShape(2.dp)
-                    )
+                    modifier = Modifier
+                        .size(10.dp)
+                        .background(
+                            MaterialTheme.colorScheme.outline.copy(alpha = 0.15f),
+                            RoundedCornerShape(2.dp)
+                        )
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Box(
-                    modifier = Modifier.size(10.dp)
+                    modifier = Modifier
+                        .size(10.dp)
                         .background(MaterialTheme.colorScheme.secondary, RoundedCornerShape(2.dp))
                 )
                 Spacer(modifier = Modifier.width(4.dp))

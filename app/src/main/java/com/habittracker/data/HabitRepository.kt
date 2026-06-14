@@ -1,10 +1,10 @@
 package com.habittracker.data
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 
 data class StreakStats(
     val currentStreak: Int,
